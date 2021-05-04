@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  db:
+    image: postgres
+    restart: always
+    env_file:
+      - docker.env
+    ports:
+      - 5431:5432
+
+  frontend:
+    build: ./frontend
+    env_file:
+      - docker.env
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
+    ports: 
+      - 3000:3000
+
+  backend:
+    build: ./backend
+    depends_on:
+      - db
+    environment:
+      PYTHONUNBUFFERED: 1 # Fix to allow print statements within the docker container\
+    env_file:
+      - docker.env
+    volumes:
+      - ./backend:/backend
+    ports: 
+      - 5001:5001
