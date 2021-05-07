@@ -3,14 +3,11 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-SQLALCHEMY_DATABASE_URL = f"postgresql+psycopg2://{os.environ.get('POSTGRES_USER')}:{os.environ.get('POSTGRES_PASSWORD')}@{os.environ.get('POSTGRES_HOST')}/{os.environ.get('POSTGRES_DB')}"
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+engine = create_engine(os.environ.get('SQLALCHEMY_DATABASE_URL'))
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
-def session():
-    """ This session is meant to be used inside of fastapi with Depends(session) """
-
+def ApiSession():
     session = SessionLocal()
     try:
         yield session
