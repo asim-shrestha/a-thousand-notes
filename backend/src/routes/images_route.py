@@ -8,6 +8,8 @@ from ..models.images import Image
 from ..schemas.images_schema import ImageBase
 
 import filetype
+from PIL import Image as PILImage
+import io
 
 router = APIRouter()
 @router.get("/{image_id}", response_model=ImageBase)
@@ -21,11 +23,12 @@ def get_image(image_id: int, db: Session = Depends(ApiSession)):
 
 @router.post("/", response_model=List[ImageBase])
 def create_images(files: List[bytes] = File(...), db: Session = Depends(ApiSession)):
-    # Validate only images sent
-    # for file in files:
-    #     print(file.content_type)
-    #     if not filetype.is_image(file.file):
-    #         raise HTTPException(status_code=400, detail="You have uploaded one or more invalid images. Aborting")
+    # Test if the file is an image by attempting to read it with PIL
+    for file in files:
+        try:
+            PILImage.open(io.BytesIO(file))
+        except:
+            raise HTTPException(status_code=400, detail="You have uploaded one or more invalid images. Aborting")
 
     # Upload to firebase and create entities
     image_url_dicts = [utils.upload_to_firebase(file) for file in files]
