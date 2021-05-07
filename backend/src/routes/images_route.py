@@ -19,13 +19,19 @@ def get_image(image_id: int, db: Session = Depends(ApiSession)):
         raise HTTPException(status_code=404, detail="Image not found")
 
 
-@router.post("/", response_model=List[dict])
+@router.post("/", response_model=List[ImageBase])
 def create_images(files: List[bytes] = File(...), db: Session = Depends(ApiSession)):
+    # Validate only images sent
     # for file in files:
     #     print(file.content_type)
     #     if not filetype.is_image(file.file):
     #         raise HTTPException(status_code=400, detail="You have uploaded one or more invalid images. Aborting")
 
-    print("Going to upload")
+    # Upload to firebase and create entities
     image_url_dicts = [utils.upload_to_firebase(file) for file in files]
-    return image_url_dicts
+    db_images = [Image(url=url_dict['url'], full_url = url_dict['full_url']) for url_dict in image_url_dicts]
+
+    # Save to db
+    db.add_all(db_images)
+    db.commit()
+    return db_images
