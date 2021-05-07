@@ -1,9 +1,12 @@
 from sqlalchemy.orm import Session
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, File, UploadFile
+from typing import List
 
 from ..models.database import ApiSession
 from ..models.images import Image 
 from ..schemas.images_schema import ImageBase
+
+import filetype
 
 router = APIRouter()
 @router.get("/{image_id}", response_model=ImageBase)
@@ -15,10 +18,11 @@ def get_image(image_id: int, db: Session = Depends(ApiSession)):
         raise HTTPException(status_code=404, detail="Image not found")
 
 
-@router.post("/", response_model=ImageBase)
-def create_image(new_image: ImageBase, db: Session = Depends(ApiSession)):
-    db_image = Image(url = new_image.url)
-    db.add(db_image)
-    db.commit()
-    db.refresh(db_image)
-    return db_image
+@router.post("/", response_model=str)
+def create_images(files: List[UploadFile] = File(...), db: Session = Depends(ApiSession)):
+    for file in files:
+        print(file.content_type)
+        if not filetype.is_image(file.file):
+            raise HTTPException(status_code=400, detail="You have uploaded one or more invalid images. Aborting")
+
+    return 'ok'
