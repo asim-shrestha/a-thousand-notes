@@ -1,5 +1,3 @@
-import io
-from pathlib import Path
 from tests import client
 
 IMAGE_ROUTE = '/image'
@@ -20,7 +18,13 @@ def test_image_upload_succeeds(image_file):
     response = client.post(f"{IMAGE_ROUTE}/", files={
         "files": image_file
         })
+
+    data = response.json()
     assert response.status_code == 200
+    assert len(data) == 1
+    assert data[0]['id']
+    assert data[0]['url']
+    assert data[0]['full_url']
 
 def test_multi_non_image_upload_fails(text_file):
     response = client.post(f"{IMAGE_ROUTE}/", files=[
@@ -28,18 +32,11 @@ def test_multi_non_image_upload_fails(text_file):
         ("files", text_file),
         ("files", text_file),
     ])
-#     assert response.status_code == 400
+    assert response.status_code == 400
 
 def test_multi_upload_fails_with_one_non_image(text_file, image_file):
     response = client.post(f"{IMAGE_ROUTE}/", files=[
         ("files", image_file),
         ("files", text_file),
-    ])
-    assert response.status_code == 400
-
-def test_multi_image_upload_succeeds(text_file, image_file):
-    response = client.post(f"{IMAGE_ROUTE}/", files=[
-        ("files", image_file),
-        ("files", image_file),
     ])
     assert response.status_code == 400

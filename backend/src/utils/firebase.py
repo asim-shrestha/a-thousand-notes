@@ -1,9 +1,7 @@
-from hashlib import new
 import pyrebase
 from fastapi import UploadFile
 import uuid
 import os
-import shutil
 
 firebaseConfig = {
     "apiKey": os.environ.get("FIREBASE_API_KEY"),
@@ -33,10 +31,6 @@ def upload_to_firebase(file: UploadFile) -> dict:
         "url": firebase_url,
         "full_url": storage.child(firebase_url).get_url(None)
     }
-
-def remove_from_firebase(url: str):
-        # Upload local version to firebase
-    storage.child(url).delete()
 
 def get_firebase_url(url):
     return url

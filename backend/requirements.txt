@@ -6,3 +6,4 @@ python-multipart
 filetype
 pyrebase
 Pillow
+spotipy
