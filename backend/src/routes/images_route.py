@@ -7,7 +7,6 @@ from ..models.database import ApiSession
 from ..models.images import Image 
 from ..schemas.images_schema import ImageBase
 
-import filetype
 from PIL import Image as PILImage
 import io
 
@@ -31,8 +30,21 @@ def create_images(files: List[bytes] = File(...), db: Session = Depends(ApiSessi
             raise HTTPException(status_code=400, detail="You have uploaded one or more invalid images. Aborting")
 
     # Upload to firebase and create entities
-    image_url_dicts = [utils.upload_to_firebase(file) for file in files]
-    db_images = [Image(url=url_dict['url'], full_url = url_dict['full_url']) for url_dict in image_url_dicts]
+    image_urls = [utils.upload_to_firebase(file) for file in files]
+    # Get random tracks from spotify for each file
+    random_tracks = [utils.get_random_track() for file in files]
+
+    # Create records with data
+    db_images = []
+    for i in range(len(files)):
+        db_images.append(Image())
+        db_images = [Image(
+            image_url=image_urls[i],
+            spotify_name=random_tracks[0].name,
+            spotify_uri=random_tracks[0].uri,
+            spotify_preview_url=random_tracks[0].preview_url,
+            spotify_popularity=random_tracks[0].popularity,
+        )]
 
     # Save to db
     db.add_all(db_images)

@@ -18,7 +18,7 @@ firebase_app = pyrebase.initialize_app(firebaseConfig)
 storage = firebase_app.storage()
 FIREBASE_IMAGES_PATH = "images"
 
-def upload_to_firebase(file: UploadFile) -> dict:
+def upload_to_firebase(file: UploadFile) -> str:
     # Generate id for file
     file_id = str(uuid.uuid4())
     firebase_url = f"{FIREBASE_IMAGES_PATH}/{file_id}"
@@ -27,10 +27,7 @@ def upload_to_firebase(file: UploadFile) -> dict:
     storage.child(firebase_url).put(file)
 
     # Return the firebase url
-    return {
-        "url": firebase_url,
-        "full_url": storage.child(firebase_url).get_url(None)
-    }
+    return storage.child(firebase_url).get_url(None)
 
 def get_firebase_url(url):
     return url
