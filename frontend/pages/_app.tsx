@@ -6,6 +6,7 @@ import { CacheProvider } from '@emotion/react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import createCache from '@emotion/cache';
 import theme from '../components/theme';
+import { Box } from '@material-ui/core';
 
 export const cache = createCache({ key: 'css', prepend: true });
 
@@ -23,13 +24,15 @@ export default function MyApp(props: AppProps) {
   return (
     <CacheProvider value={cache}>
       <Head>
-        <title>My page</title>
+        <title>A Thousand Notes</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <Component {...pageProps} />
+        <Box minWidth="100vw" minHeight="100vh" bgcolor={theme.palette.secondary.main}>
+          <Component {...pageProps} />
+        </Box>
       </ThemeProvider>
     </CacheProvider>
   );
