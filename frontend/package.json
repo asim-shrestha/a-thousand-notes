@@ -1,13 +1,13 @@
 {
-  "name": "nextjs-with-typescript",
-  "version": "5.0.0",
-  "private": true,
+  "name": "a-thousand-notes",
+  "version": "1.0.0",
+  "private": false,
   "dependencies": {
     "@emotion/cache": "latest",
     "@emotion/react": "latest",
     "@emotion/server": "latest",
     "@emotion/styled": "latest",
-    "@material-ui/core": "^5.0.0-alpha.33",
+    "@material-ui/core": "^4.9.10",
     "axios": "^0.21.1",
     "clsx": "latest",
     "next": "latest",
@@ -17,8 +17,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start",
-    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
+    "start": "next start"
   },
   "devDependencies": {
     "@types/node": "latest",

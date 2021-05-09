@@ -5,12 +5,14 @@ import Dialog from "@material-ui/core/Dialog";
 import { Box, DialogActions, DialogContent, DialogContentText, Input } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
+import { CircularProgress } from "@material-ui/core";
 
 
 
 type UploadDialogProps = { loadImages: () => {}}
 const UploadDialog = ({loadImages}: UploadDialogProps) => {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageName, setImageName] = useState<string>("");
 
@@ -22,6 +24,7 @@ const UploadDialog = ({loadImages}: UploadDialogProps) => {
 
   const handleFinish = async () => {
     try {
+      setLoading(true)
       let formData = new FormData();
       formData.append("files", selectedFile as any);
       await axios.post(
@@ -34,13 +37,19 @@ const UploadDialog = ({loadImages}: UploadDialogProps) => {
     } finally {
       loadImages();
       handleClose();
+      setLoading(false);
     }
   }
 
   return (
     <div>
       {/* Dialog Open Button */}
-      <Button size="large" variant="contained" onClick={() => setOpen(true)}>
+      <Button
+        size="large"
+        variant="contained"
+        onClick={() => setOpen(true)}
+        color="primary"
+      >
         Upload
       </Button>
 
@@ -63,7 +72,7 @@ const UploadDialog = ({loadImages}: UploadDialogProps) => {
             onChange={(e) => setImageName(e.target.value)}
           />
           <Box mt={2} display="flex" flexDirection="row" justifyContent="center">
-            <Button variant="contained" component="label" onChange={e => setSelectedFile(e.target.files[0])}>
+            <Button variant="contained" component="label" onChange={e => setSelectedFile(e.target.files[0])} color="primary">
               Upload
               <input type="file" hidden />
             </Button>
@@ -74,6 +83,7 @@ const UploadDialog = ({loadImages}: UploadDialogProps) => {
         </DialogContent>
         <DialogActions>
           <Button
+            disabled={loading}
             size="large"
             variant="contained"
             color="secondary"
@@ -84,9 +94,13 @@ const UploadDialog = ({loadImages}: UploadDialogProps) => {
           <Button
             size="large"
             variant="contained"
+            color="primary"
             onClick={handleFinish}
-            disabled={!imageName || !selectedFile}
+            disabled={loading || !imageName || !selectedFile}
           >
+            <Box mr={1} mt={1} hidden={!loading}>
+              <CircularProgress color="primary" size={20}/>
+            </Box>
             Finish
           </Button>
         </DialogActions>
