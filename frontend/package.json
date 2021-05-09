@@ -8,10 +8,12 @@
     "@emotion/server": "latest",
     "@emotion/styled": "latest",
     "@material-ui/core": "^4.9.10",
+    "@material-ui/icons": "^4.11.2",
     "axios": "^0.21.1",
     "clsx": "latest",
     "next": "latest",
     "react": "^17.0.2",
+    "react-audio-player": "^0.17.0",
     "react-dom": "latest"
   },
   "scripts": {
