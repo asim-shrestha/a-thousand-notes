@@ -7,12 +7,27 @@ import UploadDialog from '../components/UploadDialog';
 import ImageInfo from '../types/ImageInfo';
 import axios from 'axios';
 import { Grid } from '@material-ui/core';
+import { Pagination } from '@material-ui/lab';
 
 export default function Index() {
   const [images, setImages] = React.useState<ImageInfo[]>([]);
+  const [displayedImages, setDisplayedImages] = React.useState<ImageInfo[]>([]);
+  const [currentPage, setCurrentPage] = React.useState<number>(0);
+  const ITEMS_PER_PAGE = 6;
+  const numPages = Math.floor(images.length / ITEMS_PER_PAGE) + 1;
+
+
   React.useEffect(() => {
     loadImages()
   }, [])
+
+  React.useEffect(() => {
+    // Handle pagination
+    const maxIndex = images.length ? images.length - 1 : 0 // Ensure we don't get -1
+    const startIndex = Math.max(Math.min(currentPage * ITEMS_PER_PAGE - 1, maxIndex) , 0)
+    const endIndex = Math.min(currentPage * ITEMS_PER_PAGE + ITEMS_PER_PAGE, maxIndex)
+    setDisplayedImages(images.slice(startIndex, endIndex))
+  }, [currentPage, images])
 
   const loadImages = async () => {
     try {
@@ -31,9 +46,17 @@ export default function Index() {
         </Typography>
         <UploadDialog loadImages={loadImages}/>
         <Grid container justify="center">
-            {images.map((imageInfo: ImageInfo) => {
+            {displayedImages.map((imageInfo: ImageInfo) => {
               return <ImageCard key={imageInfo.id} imageInfo={imageInfo}/>
             })}
+        </Grid>
+        <Grid container justify="center">
+          <Pagination
+            count={numPages}
+            color="primary"
+            onChange={(e, page) => setCurrentPage(page - 1)}
+            size="large"
+          />
         </Grid>
       </Box>
     </Container>
