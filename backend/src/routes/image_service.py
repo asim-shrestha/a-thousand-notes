@@ -42,7 +42,6 @@ def create_images(image_name: str, files: List[bytes] = File(...), db: Session =
             spotify_name=random_tracks[0].name,
             spotify_uri=random_tracks[0].uri,
             spotify_preview_url=random_tracks[0].preview_url,
-            spotify_popularity=random_tracks[0].popularity,
         )]
 
     # Save to db

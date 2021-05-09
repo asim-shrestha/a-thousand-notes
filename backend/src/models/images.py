@@ -12,4 +12,3 @@ class Image(Base):
     spotify_name = Column(String)
     spotify_uri = Column(String)
     spotify_preview_url = Column(String)
-    spotify_popularity = Column(String)

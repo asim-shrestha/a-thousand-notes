@@ -14,4 +14,3 @@ class ImageReturn(AppBase):
     spotify_name: str
     spotify_uri: str
     spotify_preview_url: str
-    spotify_popularity: str

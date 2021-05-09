@@ -31,7 +31,6 @@ def test_image_upload_succeeds(image_file):
     assert data[0]['spotify_name']
     assert data[0]['spotify_uri']
     assert data[0]['spotify_preview_url']
-    assert data[0]['spotify_popularity']
 
 
 def test_multi_non_image_upload_fails(text_file):
