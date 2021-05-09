@@ -11,6 +11,7 @@ import ImageInfo from '../types/ImageInfo';
 
 const useStyles = makeStyles({
   root: {
+    margin: '1.5em',
     maxWidth: 345,
   },
 });
@@ -25,7 +26,7 @@ const ImageCard = ({ imageInfo }: ImageCardProps) => {
         <CardMedia
           component="img"
           alt="Contemplative Reptile"
-          height="140"
+          height="120"
           image={imageInfo.image_url}
           title={imageInfo.image_name}
         />

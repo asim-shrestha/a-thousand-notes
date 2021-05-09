@@ -6,6 +6,7 @@ import ImageCard from '../components/ImageCard';
 import UploadDialog from '../components/UploadDialog';
 import ImageInfo from '../types/ImageInfo';
 import axios from 'axios';
+import { Grid } from '@material-ui/core';
 
 export default function Index() {
   const [images, setImages] = React.useState<ImageInfo[]>([]);
@@ -29,11 +30,11 @@ export default function Index() {
           Test
         </Typography>
         <UploadDialog loadImages={loadImages}/>
-        <Container>
-          {images.map((imageInfo: ImageInfo) => {
-            return <ImageCard key={imageInfo.id} imageInfo={imageInfo}/>
-          })}
-        </Container>
+        <Grid container justify="center">
+            {images.map((imageInfo: ImageInfo) => {
+              return <ImageCard key={imageInfo.id} imageInfo={imageInfo}/>
+            })}
+        </Grid>
       </Box>
     </Container>
   );
