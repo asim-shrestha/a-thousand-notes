@@ -57,7 +57,7 @@ const UploadDialog = () => {
           />
           <Box mt={2} display="flex" flexDirection="row" justifyContent="center">
             <Button variant="contained" component="label" onChange={e => setSelectedFile(e.target.files[0])}>
-              Upload File
+              Upload
               <input type="file" hidden />
             </Button>
             <Box ml={2}>
