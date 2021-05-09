@@ -1,21 +1,15 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
-import { blue } from "@material-ui/core/colors";
 import { Box, DialogActions, DialogContent, DialogContentText, Input } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
+import axios from "axios";
 
-const useStyles = makeStyles({
-  avatar: {
-    backgroundColor: blue[100],
-    color: blue[600],
-  },
-});
 
-const UploadDialog = () => {
-  const classes = useStyles();
+
+type UploadDialogProps = { loadImages: () => {}}
+const UploadDialog = ({loadImages}: UploadDialogProps) => {
   const [open, setOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageName, setImageName] = useState<string>("");
@@ -26,8 +20,21 @@ const UploadDialog = () => {
     setSelectedFile(null);
   }
 
-  const handleFinish = () => {
-    
+  const handleFinish = async () => {
+    try {
+      let formData = new FormData();
+      formData.append("files", selectedFile as any);
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/image/name/${imageName}`,
+        formData,
+        { headers: {"content-type": "multipart/form-data"}}
+        );
+    } catch (e) {
+      alert(`Failed to upload image: ${e.message}`)
+    } finally {
+      loadImages();
+      handleClose();
+    }
   }
 
   return (
@@ -77,7 +84,7 @@ const UploadDialog = () => {
           <Button
             size="large"
             variant="contained"
-            onClick={() => setOpen(false)}
+            onClick={handleFinish}
             disabled={!imageName || !selectedFile}
           >
             Finish

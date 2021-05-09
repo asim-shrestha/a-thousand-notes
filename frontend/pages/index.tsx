@@ -28,7 +28,7 @@ export default function Index() {
         <Typography variant="h4" component="h1">
           Test
         </Typography>
-        <UploadDialog/>
+        <UploadDialog loadImages={loadImages}/>
         <Container>
           {images.map((imageInfo: ImageInfo) => {
             return <ImageCard key={imageInfo.id} imageInfo={imageInfo}/>
