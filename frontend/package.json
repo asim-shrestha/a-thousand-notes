@@ -8,6 +8,7 @@
     "@emotion/server": "latest",
     "@emotion/styled": "latest",
     "@material-ui/core": "next",
+    "axios": "^0.21.1",
     "clsx": "latest",
     "next": "latest",
     "react": "^17.0.2",

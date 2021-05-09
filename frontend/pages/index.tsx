@@ -3,6 +3,7 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { Box, Button } from '@material-ui/core';
 import ImageCard from '../components/ImageCard';
+import UploadDialog from '../components/UploadDialog';
 
 export default function Index() {
   return (
@@ -11,7 +12,7 @@ export default function Index() {
         <Typography variant="h4" component="h1">
           Test
         </Typography>
-        <Button size="large" variant="contained">Upload</Button>
+        <UploadDialog/>
         <Container>
           <ImageCard/>
           <ImageCard/>
