@@ -1,14 +1,16 @@
 from sqlalchemy.orm import Session
-from fastapi import APIRouter, Depends, HTTPException, File, UploadFile
+from fastapi import Depends, HTTPException, File
 from typing import List
 
 from .. import utils
 from ..models.database import ApiSession
 from ..models.images import Image 
-from ..schemas.images_schema import ImageBase
 
 from PIL import Image as PILImage
 import io
+
+def get_all_images(db: Session):
+    return db.query(Image).all()
 
 def get_image_by_id(image_id: int, db: Session):
     image = db.query(Image).filter(Image.id == image_id).first()
@@ -17,7 +19,7 @@ def get_image_by_id(image_id: int, db: Session):
     else:
         raise HTTPException(status_code=404, detail="Image not found")
 
-def create_images(files: List[bytes] = File(...), db: Session = Depends(ApiSession)):
+def create_images(image_name: str, files: List[bytes] = File(...), db: Session = Depends(ApiSession)):
     # Test if the file is an image by attempting to read it with PIL
     for file in files:
         try:
@@ -35,6 +37,7 @@ def create_images(files: List[bytes] = File(...), db: Session = Depends(ApiSessi
     for i in range(len(files)):
         db_images.append(Image())
         db_images = [Image(
+            image_name=image_name,
             image_url=image_urls[i],
             spotify_name=random_tracks[0].name,
             spotify_uri=random_tracks[0].uri,

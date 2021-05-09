@@ -4,7 +4,7 @@ from sqlalchemy_utils import drop_database, create_database, database_exists
 from src.models.database import Base, engine
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="function", autouse=True)
 def create_test_database():
     # Ensure the DB engine is a test DB
     url = engine.url
