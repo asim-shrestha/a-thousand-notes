@@ -1,3 +1,4 @@
 *.pyc
 tests.db
 *.cache
+docker.env
