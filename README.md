@@ -19,6 +19,8 @@
 # About
 A Thousand Notes is a full stack web application created for the Fall 2021 - Shopify Developer Intern Challenge. It is an app that aims to help bring your pictures to life. Within the app, you can upload images along with their names and they will be displayed within the app and automatically linked to a relavant song on spotify. In doing this, users will be able to appreciate their pictures like never before because after all, <em>A picture is worth a thousand... notes</em>. 
 
+**Side Note:** The app may take about 30 seconds to cold boot.
+
 ### Backend features
 You can view the backend api of the app <a href="https://a-thousand-notes.herokuapp.com/">here</a>. This api has been thoroughly tested with Pytest. Features include retriving images by id or retrieving all images, deleting an image by id or a list of ids, and adding one or more images. Image data such as spotify information is stored in postgreSQL while the images themselves are stored on Google's Firebase.
 
