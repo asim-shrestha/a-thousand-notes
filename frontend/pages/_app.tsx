@@ -26,6 +26,7 @@ export default function MyApp(props: AppProps) {
       <Head>
         <title>A Thousand Notes</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <link rel="shortcut icon" href="https://static.thenounproject.com/png/182706-200.png" />
       </Head>
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}

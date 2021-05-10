@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 import os
 from . import models
 from .models import database
@@ -18,5 +19,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/app")
+async def redirect_to_front_end():
+    response = RedirectResponse(url=os.environ.get("API_CORS_ALLOW_ORIGINS"))
+    return response
 
 from . import routes
