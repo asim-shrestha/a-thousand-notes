@@ -28,7 +28,7 @@ const UploadDialog = ({selectedImageIds, loadImages}: UploadDialogProps) => {
           data: selectedImageIds
         }
       );
-    } catch (e) {
+    } catch (e: any) {
       alert(`Failed to delete image(s): ${e.message}`)
     } finally {
       loadImages();

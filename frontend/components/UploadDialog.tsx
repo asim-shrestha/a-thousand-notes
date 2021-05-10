@@ -69,10 +69,10 @@ const UploadDialog = ({loadImages}: UploadDialogProps) => {
             }}
             fullWidth
             value={imageName}
-            onChange={(e) => setImageName(e.target.value)}
+            onChange={(e: any) => setImageName(e.target.value)}
           />
           <Box mt={2} display="flex" flexDirection="row" justifyContent="center">
-            <Button variant="contained" component="label" onChange={e => setSelectedFile(e.target.files[0])} color="primary">
+            <Button variant="contained" component="label" onChange={(e: any) => setSelectedFile(e.target.files[0])} color="primary">
               Upload
               <input type="file" hidden />
             </Button>

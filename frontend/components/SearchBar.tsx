@@ -7,7 +7,7 @@ type SearchBarProps = {handleSearch: Function}
 const SearchBar = ({handleSearch}: SearchBarProps) => {
   const [search, setSearch] = React.useState<string>('');
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const searchQuery = e.target.value;
     setSearch(searchQuery)
     handleSearch(searchQuery);
