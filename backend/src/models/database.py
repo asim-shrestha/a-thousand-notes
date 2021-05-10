@@ -3,7 +3,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-engine = create_engine(os.environ.get('DATABASE_URL'))
+engine_url = os.environ.get('DATABASE_URL')
+# Apply fix for heroku
+if engine_url.startswith('postgres:'):
+    engine_url.replace('postgres', 'postgresql')
+    
+engine = create_engine(engine_url)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
