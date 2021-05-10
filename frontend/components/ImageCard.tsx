@@ -49,8 +49,7 @@ const ImageCard = ({ imageInfo, checked, handleChecked }: ImageCardProps) => {
             {imageInfo.image_name}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
+            Linked to a spotify song called: "<b>{imageInfo.spotify_name}</b>".
           </Typography>
         </CardContent>
       </CardActionArea>

@@ -6,7 +6,6 @@ type ImageInfo = {
   spotify_name: string,
   spotify_uri: string,
   spotify_preview_url: string,
-  spotify_popularity: string,
 }
 
 export default ImageInfo

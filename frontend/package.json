@@ -8,7 +8,7 @@
     "@emotion/server": "latest",
     "@emotion/styled": "latest",
     "@material-ui/core": "latest",
-    "@material-ui/icons": "latest",
+    "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "latest",
     "axios": "^0.21.1",
     "clsx": "latest",
