@@ -23,7 +23,7 @@ A Thousand Notes is a full stack web application created for the Fall 2021 - Sho
 You can view the backend api of the app <a href="https://a-thousand-notes.herokuapp.com/">here</a>. This api has been thoroughly tested with Pytest. Features include retriving images by id or retrieving all images, deleting an image by id or a list of ids, and adding one or more images. Image data such as spotify information is stored in postgreSQL while the images themselves are stored on Google's Firebase.
 
 ### Frontend features
-You can view the front end of the app <a href="https://a-thousand-notes.herokuapp.com/app">here</a>. Features include uploading an image via the upload button, playing the Spotify preview of a linked song within your browser, a button to open a given song in spotify, selecting multiple songs to delete with a delete button, querying images by name via the search bar, and pagination of images via the buttons at the buttom of the page.
+You can view the front end of the app <a href="https://a-thousand-notes.herokuapp.com/app">here</a>. Features include uploading an image via the upload button, playing the Spotify preview of a linked song within your browser, a button to open a given song in spotify (NOTE: You need spotify on your machine for this), selecting multiple songs to delete with a delete button, querying images by name via the search bar, and pagination of images via the buttons at the buttom of the page.
 
 # Framework and tools
 ### Backend
