@@ -13,12 +13,12 @@ import { Pagination } from '@material-ui/lab';
 export default function Index() {
   const [images, setImages] = React.useState<ImageInfo[]>([]);
   const [displayedImages, setDisplayedImages] = React.useState<ImageInfo[]>([]);
-  const [selectedImageIds, setSelectedImageIds] = React.useState<string[]>([]);
+  const [selectedImageIds, setSelectedImageIds] = React.useState<number[]>([]);
 
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const ITEMS_PER_PAGE = 6;
-  const numPages = Math.floor(images.length / ITEMS_PER_PAGE) + 1;
-
+  const numPages = Math.ceil(images.length / ITEMS_PER_PAGE);
+  console.log("POAGES", images.length, images.length / ITEMS_PER_PAGE, Math.ceil(images.length / ITEMS_PER_PAGE));
 
   React.useEffect(() => {
     loadImages()
@@ -27,8 +27,8 @@ export default function Index() {
   React.useEffect(() => {
     // Handle pagination
     const page = currentPage - 1
-    const maxIndex = images.length ? images.length - 1 : 0 // Ensure we don't get -1
-    const startIndex = Math.max(Math.min(page * ITEMS_PER_PAGE - 1, maxIndex) , 0)
+    const maxIndex = images.length
+    const startIndex = Math.min(page * ITEMS_PER_PAGE, maxIndex)
     const endIndex = Math.min(page * ITEMS_PER_PAGE + ITEMS_PER_PAGE, maxIndex)
     setDisplayedImages(images.slice(startIndex, endIndex))
     console.log(startIndex, endIndex);
@@ -39,13 +39,14 @@ export default function Index() {
     try {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/image/`);
       setCurrentPage(1);
+      setSelectedImageIds([]);
       setImages(res.data);
     } catch {
       alert("Failed to load images")
     }
   }
 
-  const handleSelectImage = (id: string) => {
+  const handleSelectImage = (id: number) => {
     const imageIds = [...selectedImageIds] 
     if (imageIds.indexOf(id) != -1) {
       imageIds.splice(imageIds.indexOf(id), 1)

@@ -1,5 +1,5 @@
 type ImageInfo = {
-  id: string,
+  id: number,
   image_name: string,
   image_url: string,
 

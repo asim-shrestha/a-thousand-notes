@@ -9,7 +9,7 @@ import theme from "./theme";
 
 
 type UploadDialogProps = { 
-  selectedImageIds: string[],
+  selectedImageIds: number[],
   loadImages: () => {}
 }
 const UploadDialog = ({selectedImageIds, loadImages}: UploadDialogProps) => {
@@ -24,8 +24,9 @@ const UploadDialog = ({selectedImageIds, loadImages}: UploadDialogProps) => {
     try {
       setLoading(true)
       await axios.delete(
-        `${process.env.NEXT_PUBLIC_API}/image/`,
-        selectedImageIds
+        `${process.env.NEXT_PUBLIC_API}/image/`, {
+          data: selectedImageIds
+        }
       );
     } catch (e) {
       alert(`Failed to delete image(s): ${e.message}`)
