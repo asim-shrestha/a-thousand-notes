@@ -98,7 +98,8 @@ export default function Index() {
             count={numPages}
             color="primary"
             page={currentPage}
-            onChange={(e, page) => setCurrentPage(page)}
+            onChange={(e, page) => {console.log(e);
+             setCurrentPage(page)}}
             size="large"
           />
         </Grid>
