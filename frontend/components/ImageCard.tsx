@@ -38,6 +38,7 @@ const ImageCard = ({ imageInfo, checked, handleChecked }: ImageCardProps) => {
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
+          onClick={() => handleChecked(imageInfo.id)} 
           component="img"
           alt="Contemplative Reptile"
           height="120"
