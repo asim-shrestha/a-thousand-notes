@@ -10,6 +10,7 @@ import { Button } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import ImageInfo from '../types/ImageInfo';
 import ReactAudioPlayer from 'react-audio-player';
+import { Checkbox } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
@@ -21,8 +22,12 @@ const useStyles = makeStyles({
   }
 });
 
-type ImageCardProps = {imageInfo: ImageInfo}
-const ImageCard = ({ imageInfo }: ImageCardProps) => {
+type ImageCardProps = {
+  imageInfo: ImageInfo
+  checked: boolean,
+  handleChecked: Function
+}
+const ImageCard = ({ imageInfo, checked, handleChecked }: ImageCardProps) => {
   const classes = useStyles();
 
   const openInSpotify = () => {
@@ -39,7 +44,7 @@ const ImageCard = ({ imageInfo }: ImageCardProps) => {
           image={imageInfo.image_url}
           title={imageInfo.image_name}
         />
-        <CardContent>
+        <CardContent onClick={() => handleChecked(imageInfo.id)}>
           <Typography gutterBottom variant="h5" component="h2">
             {imageInfo.image_name}
           </Typography>
@@ -63,6 +68,11 @@ const ImageCard = ({ imageInfo }: ImageCardProps) => {
         >
           <LinkIcon/>
         </Button>
+        <Checkbox
+          checked={checked}
+          color="default"
+          onClick={() => handleChecked(imageInfo.id)}
+        />
       </CardActions>
     </Card>
   );

@@ -83,11 +83,11 @@ const UploadDialog = ({loadImages}: UploadDialogProps) => {
         </DialogContent>
         <DialogActions>
           <Button
-            disabled={loading}
             size="large"
             variant="contained"
             color="secondary"
             onClick={() => setOpen(false)}
+            disabled={loading}
           >
             Close
           </Button>
