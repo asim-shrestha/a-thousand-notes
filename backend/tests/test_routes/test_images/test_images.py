@@ -1,3 +1,4 @@
+from fastapi.params import Body
 from tests import client
 
 IMAGE_ROUTE = '/image'
@@ -88,3 +89,17 @@ def test_get_all_images_with_image(image_file):
     response = client.get(f"{IMAGE_ROUTE}/")
     assert response.status_code == 200
     assert len(response.json()) == 1
+
+def test_delete_images_by_ids(image_file):
+    response = client.post(f"{IMAGE_ROUTE}/name/{IMAGE_NAME}", files={
+        "files": image_file
+    })
+
+    assert response.status_code == 200
+    id = response.json()[0]['id']
+
+    response = client.delete(f"{IMAGE_ROUTE}/{id}", json={'body': [id]})
+    assert response.status_code == 200
+
+    response = client.get(f"{IMAGE_ROUTE}/{id}")
+    assert response.status_code == 404

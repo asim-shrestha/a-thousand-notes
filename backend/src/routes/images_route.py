@@ -22,5 +22,9 @@ def create_images(image_name: str, files: List[bytes] = File(...), db: Session =
     return image_service.create_images(image_name, files, db)
 
 @router.delete("/{image_id}", response_model=None)
-def delete_images_by_ids(image_id: int, db: Session = Depends(ApiSession)):
-    return image_service.delete_images_by_ids(image_id, db)
+def delete_image_by_id(image_id: int, db: Session = Depends(ApiSession)):
+    return image_service.delete_image_by_id(image_id, db)
+
+@router.delete("/", response_model=None)
+def delete_images_by_ids(image_ids: List[int], db: Session = Depends(ApiSession)):
+    return image_service.delete_images_by_ids(image_ids, db)

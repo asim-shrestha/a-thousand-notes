@@ -48,9 +48,17 @@ def create_images(image_name: str, files: List[bytes] = File(...), db: Session =
     db.add_all(db_images)
     db.commit()
     return db_images
-    
-def delete_images_by_ids(image_id: int, db: Session):
+
+def delete_image_by_id(image_id: int, db: Session):
     image = get_image_by_id(image_id, db)
     db.delete(image)
+    db.commit()
+    return
+
+def delete_images_by_ids(image_ids: List[int], db: Session):
+    for id in image_ids:
+        print(id)
+        image = get_image_by_id(id, db)
+        db.delete(image)
     db.commit()
     return
